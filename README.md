@@ -76,3 +76,10 @@ networks:
 #docker network create web
 ```
 
+Para esta acessando, digite no navegador uma das opções: 
+
+```
+traefik.local:8000 - Para dashboard
+frontend.local:8000
+backend.local:8000
+```
