@@ -22,6 +22,7 @@ Adicionar no final do arquivo as informações:
 
 ```
 services:
+  
   traefik:
     image: traefik
     ports:
@@ -42,6 +43,7 @@ services:
       - "traefik.http.routers.traefik.service=api@internal"
       #- "traefik.http.routers.traefik.middlewares=auth" # Habilitar autenticação básica
       #- "traefik.http.middlewares.auth.basicauth.users=usuario:senhaBcrypt" # Senha bcrypr
+  
   frontend:
     image: nginxdemos/hello
     ports:
@@ -54,6 +56,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.frontend.entrypoints=web"
       - "traefik.http.routers.frontend.rule=Host(`frontend.local`)"
+  
   backend:
     image: nginxdemos/hello
     ports:
