@@ -1,0 +1,26 @@
+services:
+  traefik:
+    image: traefik
+    ports:
+      - 8000:80
+    networks:
+      - "web"
+    command:
+     - "--providers.docker=true"
+     - "--entrypoints.web.address=:80"
+     - "--log.level=DEBUG"
+     - "--api=true"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  # Acesso ao socket do Docker
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=web"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.local`)"
+      - "traefik.http.routers.traefik.service=api@internal"
+      #- "traefik.http.routers.traefik.middlewares=auth" # Habilitar autenticação básica
+      #- "traefik.http.middlewares.auth.basicauth.users=test:123" # Senha bcrypr
+networks:
+  web:
+    external: true
+#docker network create web
